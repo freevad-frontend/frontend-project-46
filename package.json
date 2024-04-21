@@ -1,0 +1,30 @@
+{
+  "name": "@hexlet/code",
+  "version": "1.0.0",
+  "description": "compare files",
+  "main": "index.js",
+  "scripts": {
+    "test": "test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/freevad-frontend/frontend-project-46.git"
+  },
+  "keywords": [
+    "hexlet",
+    "compare",
+    "files"
+  ],
+  "author": "Vadim Semenov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/freevad-frontend/frontend-project-46/issues"
+  },
+  "homepage": "https://github.com/freevad-frontend/frontend-project-46#readme",
+  "devDependencies": {
+    "eslint": "^9.1.0"
+  },
+  "dependencies": {
+    "commander": "^12.0.0"
+  }
+}

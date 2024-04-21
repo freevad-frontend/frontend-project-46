@@ -4,7 +4,7 @@ publish:
 	npm publish --dry-run
 lint:
 	npx eslint .
-gendiff -h:
+gendiff:
 	node gendiff.js
 
 .PHONY: install publish lint 

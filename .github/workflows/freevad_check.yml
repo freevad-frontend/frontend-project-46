@@ -29,4 +29,5 @@ jobs:
       run: ./cc-test-reporter before-build
     - name: Upload coverage data to Code Climate
       run: |
-        ./cc-test-reporter after-build --exit-code ${{ job.status }} --id ${{ secrets.code_c_tpid_fr }}
+        EXIT_CODE=${{ steps.jest_test.outcome == 'success' ? 0 : 1 }}
+        ./cc-test-reporter after-build --exit-code $EXIT_CODE --id ${{ secrets.code_c_tpid_fr }}

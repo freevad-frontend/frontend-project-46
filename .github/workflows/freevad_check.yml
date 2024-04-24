@@ -30,5 +30,5 @@ jobs:
     - name: Upload coverage data to Code Climate
       run: |
         EXIT_CODE=0
-        if [ ${{ steps.jest.outcome }} != 'success' ]; then EXIT_CODE=1; fi
-        ./cc-test-reporter after-build --exit-code $EXIT_CODE --id ${{ secrets.code_c_tpid_fr }}
+        if [[ ${{ steps.jest.outcome }} != 'success' ]]; then EXIT_CODE=1; fi
+        ./cc-test-reporter after-build --exit-code $EXIT_CODE --id ${{ secrets.CODE_C_TRID_FR }}

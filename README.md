@@ -2,3 +2,5 @@
 [![Actions Status](https://github.com/freevad-frontend/frontend-project-46/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/freevad-frontend/frontend-project-46/actions)
 [![Maintainability](https://api.codeclimate.com/v1/badges/8d5228c4f4faf5823d99/maintainability)](https://codeclimate.com/github/freevad-frontend/frontend-project-46/maintainability)
 [![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
+
+New text to commit (delete after)

@@ -21,14 +21,11 @@ jobs:
       run: npm install
     - name: Run Jest with Coverage
       run: npm test -- --coverage
-    - name: Download Code Climate Test Reporter
-      run: |
-        curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-        chmod +x ./cc-test-reporter
-    - name: Before build
-      run: ./cc-test-reporter before-build
-    - name: Upload coverage data to Code Climate
-      run: |
-        EXIT_CODE=0
-        if [[ ${{ steps.jest.outcome }} != 'success' ]]; then EXIT_CODE=1; fi
-        ./cc-test-reporter after-build --exit-code $EXIT_CODE --id ${{ secrets.CODE_C_TRID_FR }}
+    - name: Publish code coverage to code-climate (duh)
+      uses: paambaati/codeclimate-action@v5.0.0
+      env:
+        CC_TEST_REPORTER_ID: ${{ secrets.CODE_C_TRID_FR }}
+      with:
+        debug: true
+        coverageLocations: |
+          ${{github.workspace}}/.tap/report/lcov.info:lcov

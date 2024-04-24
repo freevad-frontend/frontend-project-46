@@ -9,8 +9,8 @@ const getDiffFiles = (filepath1, filepath2) => {
   const parseFile1 = parseFile(fileRead1);
   const parseFile2 = parseFile(fileRead2);
 
-  const keysAll = _.union(Object.keys(parseFile1), Object.keys(parseFile2));
-  const keysSort = _.sortBy(keysAll);
+  const keysAllUnique = _.union(Object.keys(parseFile1), Object.keys(parseFile2));
+  const keysSort = _.sortBy(keysAllUnique);
 
   const diffLines = keysSort.map((key) => {
     if (!_.has(parseFile2, key)) {

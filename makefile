@@ -5,6 +5,6 @@ publish:
 lint:
 	npx eslint .
 gendiff:
-	node gendiff.js
+	node bin/gendiff.js
 
 .PHONY: install publish lint 

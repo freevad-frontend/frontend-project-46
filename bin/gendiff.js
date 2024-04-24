@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { Command } from 'commander';
 import getDiffFiles from '../src/diff.js';
 
@@ -15,3 +17,5 @@ program
   .helpOption('-h, --help', 'output usage information');
 
 program.parse(process.argv);
+
+export default program;

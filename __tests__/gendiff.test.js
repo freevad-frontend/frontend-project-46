@@ -15,9 +15,14 @@ test('compare files', () => {
   const filePath1 = getFixturePath('file1.json');
   const filePath2 = getFixturePath('file2.json');
   const filePath3 = getFixturePath('file3.txt');
+  const filePath4 = getFixturePath('file4.yml');
+  const filePath5 = getFixturePath('file5.yml');
   const expectedCompareFilesPath = getFixturePath('expectedCompareFiles.txt');
   const expectedCompareFilesContent = fs.readFileSync(expectedCompareFilesPath, 'utf-8');
 
   expect(getDiffFiles(filePath1, filePath2)).toEqual(expectedCompareFilesContent);
+
+  expect(getDiffFiles(filePath4, filePath5)).toEqual(expectedCompareFilesContent);
+
   expect(() => getDiffFiles(filePath1, filePath3)).toThrow('Unsupported file format: .txt');
 });

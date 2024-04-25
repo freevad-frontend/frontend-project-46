@@ -15,9 +15,9 @@ const getDiffFiles = (filepath1, filepath2) => {
   const parseFile1 = parseFile(fileRead1);
   const parseFile2 = parseFile(fileRead2);
 
-  const keysSort = getKeysUniqueSort(parseFile1, parseFile2);
+  const keysUniqueSort = getKeysUniqueSort(parseFile1, parseFile2);
 
-  const diffLines = keysSort.map((key) => {
+  const diffLines = keysUniqueSort.map((key) => {
     if (!_.has(parseFile2, key)) {
       return `  - ${key}: ${parseFile1[key]}`;
     }

@@ -5,6 +5,7 @@ const parseFile = ({ fileExt, fileContent }) => {
     case '.json':
       return JSON.parse(fileContent);
     case '.yml':
+    case '.yaml':
       return yaml.load(fileContent, 'utf8');
     default:
       throw new Error(`Unsupported file format: ${fileExt}`);

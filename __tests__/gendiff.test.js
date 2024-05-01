@@ -4,7 +4,7 @@ import { fileURLToPath } from 'url';
 import { join, dirname } from 'path';
 import fs from 'fs';
 
-import getDiffFiles from '../src/diff.js';
+import getDiffFiles from '../src/compare.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -20,9 +20,23 @@ test('compare files', () => {
   const expectedCompareFilesPath = getFixturePath('expectedCompareFiles.txt');
   const expectedCompareFilesContent = fs.readFileSync(expectedCompareFilesPath, 'utf-8');
 
+  const fileNSPath1 = getFixturePath('fileNS1.json');
+  const fileNSPath2 = getFixturePath('fileNS2.json');
+  const fileNSPath3 = getFixturePath('fileNS3.txt');
+  const fileNSPath4 = getFixturePath('fileNS4.yml');
+  const fileNSPath5 = getFixturePath('fileNS5.yml');
+  const expectedCompareFilesNSPath = getFixturePath('expectedCompareNSFile.txt');
+  const expectedCompareFilesNSContent = fs.readFileSync(expectedCompareFilesNSPath, 'utf-8');
+
   expect(getDiffFiles(filePath1, filePath2)).toEqual(expectedCompareFilesContent);
 
   expect(getDiffFiles(filePath4, filePath5)).toEqual(expectedCompareFilesContent);
 
   expect(() => getDiffFiles(filePath1, filePath3)).toThrow('Unsupported file format: .txt');
+
+  expect(getDiffFiles(fileNSPath1, fileNSPath2)).toEqual(expectedCompareFilesNSContent);
+
+  expect(getDiffFiles(fileNSPath4, fileNSPath5)).toEqual(expectedCompareFilesNSContent);
+
+  expect(() => getDiffFiles(fileNSPath1, fileNSPath3)).toThrow('Unsupported file format: .txt');
 });

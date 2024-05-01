@@ -29,11 +29,13 @@ const iterDiff = (key, parseFile1, parseFile2, depth) => {
   return `${margin(depth)}- ${key}: ${value1}\n${margin(depth)}+ ${key}: ${value2}`;
 };
 
+const getPrefix = (prefixKey, key) => (prefixKey ? `${prefixKey}: {${key}` : key);
+
 const iterDiffLines = (parseFile1, parseFile2, prefixKey, depth) => {
   const keysUniqueSort = getKeysUniqueSort(parseFile1, parseFile2);
 
   const diffLines = keysUniqueSort.map((key) => {
-    const fullKey = prefixKey ? `${prefixKey}: {${key}` : key;
+    const fullKey = getPrefix(prefixKey, key);
 
     if (typeof parseFile1[key] === 'object' && !Array.isArray(parseFile1[key]) && typeof parseFile2[key] === 'object' && !Array.isArray(parseFile2[key])) {
       const depthNew = depth + 1;

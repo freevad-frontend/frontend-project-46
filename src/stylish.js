@@ -26,11 +26,19 @@ const objFormatted = (obj, depth, prefixKey) => {
   return `${result}\n${margin(depth, repeatDiff, offsetObj)}}`;
 };
 
+const valueToString = (value, depth) => {
+  if (typeof value === 'object' && value !== null) {
+    return objFormatted(value, depth, '');
+  }
+
+  return String(value);
+};
+
 export const getValueFormatted = (valueIntr, type, depth) => {
   const key = String(valueIntr.key);
-  const value = (typeof valueIntr.value === 'object' && valueIntr.value !== null) ? objFormatted(valueIntr.value, depth, '') : String(valueIntr.value);
-  const value1 = (typeof valueIntr.value1 === 'object' && valueIntr.value1 !== null) ? objFormatted(valueIntr.value1, depth, '') : String(valueIntr.value1);
-  const value2 = (typeof valueIntr.value2 === 'object' && valueIntr.value2 !== null) ? objFormatted(valueIntr.value2, depth, '') : String(valueIntr.value2);
+  const value = valueToString(valueIntr.value, depth);
+  const value1 = valueToString(valueIntr.value1, depth);
+  const value2 = valueToString(valueIntr.value2, depth);
 
   switch (type) {
     case 'added':

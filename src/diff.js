@@ -6,12 +6,14 @@ const getKeysUniqueSort = (file1, file2) => {
   return keysSort;
 };
 
+const isHas = (obj, key) => (!!_.has(obj, key));
+
 const getDiffLine = (key, parseFile1, parseFile2) => {
-  if (!_.has(parseFile2, key)) {
+  if (!isHas(parseFile2, key)) {
     const diffLine = { key, value: parseFile1[key], type: 'deleted' };
     return diffLine;
   }
-  if (!_.has(parseFile1, key)) {
+  if (!isHas(parseFile1, key)) {
     const diffLine = { key, value: parseFile2[key], type: 'added' };
     return diffLine;
   }
@@ -26,13 +28,15 @@ const getDiffLine = (key, parseFile1, parseFile2) => {
   return diffLine;
 };
 
+const isObject = (value) => (!!((typeof value === 'object' && !Array.isArray(value) && value !== null)));
+
 const getDiffArray = (parseFile1, parseFile2) => {
   const keysUniqueSort = getKeysUniqueSort(parseFile1, parseFile2);
 
   const diffLinesArray = [];
 
   keysUniqueSort.map((key) => {
-    if (typeof parseFile1[key] === 'object' && !Array.isArray(parseFile1[key]) && parseFile1[key] !== null && typeof parseFile2[key] === 'object' && !Array.isArray(parseFile2[key]) && parseFile2[key] !== null) {
+    if (isObject(parseFile1[key]) && isObject(parseFile2[key])) {
       const newLine = { key, children: getDiffArray(parseFile1[key], parseFile2[key]), type: 'nested' };
       diffLinesArray.push(newLine);
       return newLine;

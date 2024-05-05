@@ -29,8 +29,12 @@ test('compare files', () => {
   const expectedCompareFilesNSPath = getFixturePath('expectedCompareNSFile.txt');
   const expectedCompareFilesNSContent = fs.readFileSync(expectedCompareFilesNSPath, 'utf-8');
 
-  const testErrorObj1 = { key: 'tt', value: 22, value1: 33, value2: 44 };
-  const testErrorObj2 = { key: 'tt', value: 22, value1: 33, value2: testErrorObj1 };
+  const testErrorObj1 = {
+    key: 'tt', value: 22, value1: 33, value2: 44,
+  };
+  const testErrorObj2 = {
+    key: 'tt', value: 22, value1: 33, value2: testErrorObj1,
+  };
 
   expect(getDiffFiles(filePath1, filePath2)).toEqual(expectedCompareFilesContent);
 
@@ -51,5 +55,4 @@ test('compare files', () => {
   expect(() => getValueFormatted(testErrorObj2, 'test', 1)).toThrow('Error: not found type compare: test');
 
   expect(getStringify('')).toEqual('');
-
 });

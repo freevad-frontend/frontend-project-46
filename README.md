@@ -57,10 +57,10 @@ Utility Reference Information.
 >
 > Compares two configuration files and shows a difference.
 > 
-> Options:
->  -V, --version        output the version number
->  -f, --format [type]  output format (default: "stylish")
->  -h, --help           output usage information
+> Options:  
+>  &nbsp;&nbsp;&nbsp;&nbsp;-V, --version        output the version number  
+>  &nbsp;&nbsp;&nbsp;&nbsp;-f, --format [type]  output format (default: "stylish")  
+>  &nbsp;&nbsp;&nbsp;&nbsp;-h, --help           output usage information  
 
 
 ## Stylish formatter

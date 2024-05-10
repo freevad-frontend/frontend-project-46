@@ -7,6 +7,7 @@ import fs from 'fs';
 import getDiffFiles from '../src/compare.js';
 import { getStringify, getValueFormatted } from '../formatters/stylish.js';
 import { getPlain, getValueFormattedPlain } from '../formatters/plain.js';
+import getJson from '../formatters/json.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -28,11 +29,13 @@ test('compare files', () => {
   const fileNSPath4 = getFixturePath('fileNS4.yml');
   const fileNSPath5 = getFixturePath('fileNS5.yml');
 
-  const expectedCompareFilesNSPath = getFixturePath('expectedCompareNSFile.txt');
+  const expectedCompareFilesNSPath = getFixturePath('expectedCompareStylishFile.txt');
   const expectedCompareFilesPlainPath = getFixturePath('expectedComparePlainFile.txt');
+  const expectedCompareFilesJsonPath = getFixturePath('expectedCompareJsonFile.txt');
 
   const expectedCompareFilesNSContent = fs.readFileSync(expectedCompareFilesNSPath, 'utf-8');
   const expectedCompareFilesPlainContent = fs.readFileSync(expectedCompareFilesPlainPath, 'utf-8');
+  const expectedCompareFilesJsonContent = fs.readFileSync(expectedCompareFilesJsonPath, 'utf-8');
 
   const testErrorObj1 = {
     key: 'tt', value: 22, value1: 33, value2: 44,
@@ -59,6 +62,10 @@ test('compare files', () => {
 
   expect(getDiffFiles(fileNSPath4, fileNSPath5, 'plain')).toEqual(expectedCompareFilesPlainContent);
 
+  expect(getDiffFiles(fileNSPath1, fileNSPath2, 'json')).toEqual(expectedCompareFilesJsonContent);
+
+  expect(getDiffFiles(fileNSPath4, fileNSPath5, 'json')).toEqual(expectedCompareFilesJsonContent);
+
   expect(() => getDiffFiles(fileNSPath1, fileNSPath3)).toThrow('Unsupported file format: .txt');
 
   expect(() => getValueFormatted(testErrorObj2, 'test', 1)).toThrow('Error: not found type compare: test');
@@ -66,4 +73,5 @@ test('compare files', () => {
 
   expect(getStringify('')).toEqual('');
   expect(getPlain('')).toEqual('');
+  expect(getJson('')).toEqual('');
 });

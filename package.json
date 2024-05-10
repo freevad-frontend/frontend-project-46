@@ -2,7 +2,7 @@
   "name": "@hexlet/code",
   "version": "1.0.0",
   "description": "compare files",
-  "main": "gendiff.js",
+  "main": "compare.js",
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch"

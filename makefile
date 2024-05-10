@@ -7,4 +7,4 @@ lint:
 gendiff:
 	node bin/gendiff.js
 
-.PHONY: install publish lint 
+.PHONY: install publish lint gendiff

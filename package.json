@@ -2,7 +2,7 @@
   "name": "@hexlet/code",
   "version": "1.0.0",
   "description": "compare files",
-  "main": "compare.js",
+  "main": "src/compare.js",
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch"

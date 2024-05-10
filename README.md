@@ -53,7 +53,7 @@ Utility Reference Information.
 - for Ubuntu:
   `node bin/gendiff -h`
 
-> Usage: gendiff [options] <filepath1> <filepath2>
+> Usage: gendiff [options] \<filepath1\> \<filepath2\>
 >
 > Compares two configuration files and shows a difference.
 > 

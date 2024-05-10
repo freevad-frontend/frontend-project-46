@@ -2,7 +2,7 @@ const repeatDiff = 4;
 
 const offsetDiff = 2;
 const offsetObj = 0;
-const offsetValue = 4;
+const offsetEndObj = 4;
 
 const count = (depth, repeat, offset = offsetDiff) => depth * repeat - offset;
 
@@ -62,7 +62,7 @@ const stringifyIter = (value, depth, prefixKey) => {
 
     if (obj.type === 'nested') {
       const valueOfKey = obj.children;
-      result += `\n${margin(depth, repeatDiff, offsetObj)}${key}: {${stringifyIter(valueOfKey, depth + 1, fullKey)}\n${margin(depth + 1, repeatDiff, offsetValue)}}`;
+      result += `\n${margin(depth, repeatDiff, offsetObj)}${key}: {${stringifyIter(valueOfKey, depth + 1, fullKey)}\n${margin(depth + 1, repeatDiff, offsetEndObj)}}`;
     } else {
       const valueOfKey = getValueFormatted(obj, obj.type, depth);
       result += `\n${valueOfKey}`;

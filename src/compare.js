@@ -6,7 +6,7 @@ import { getStringify } from '../formatters/stylish.js';
 import { getPlain } from '../formatters/plain.js';
 import getJson from '../formatters/json.js';
 
-const getDiffFiles = (filepath1, filepath2, formatter = 'stylish') => {
+const getDiffFiles = (filepath1, filepath2, formatter) => {
   const fileRead1 = readFile(filepath1);
   const fileRead2 = readFile(filepath2);
   const parseFile1 = parseFile(fileRead1);

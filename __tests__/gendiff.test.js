@@ -5,9 +5,9 @@ import { join, dirname } from 'path';
 import fs from 'fs';
 
 import getDiffFiles from '../src/compare.js';
-import { getStringify, getValueFormatted } from '../formatters/stylish.js';
-import { getPlain, getValueFormattedPlain } from '../formatters/plain.js';
-import getJson from '../formatters/json.js';
+import { getStringify, getValueFormatted } from '../src/formatters/stylish.js';
+import { getPlain, getValueFormattedPlain } from '../src/formatters/plain.js';
+import getJson from '../src/formatters/json.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);

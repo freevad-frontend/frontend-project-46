@@ -1,16 +1,16 @@
 const valueIsObject = (value) => !!(typeof value === 'object' && value !== null);
 
-const valueToString = (value) => {
+const getValueFormattedToString = (value) => {
   if (typeof value === 'string') {
     return `'${String(value)}'`;
   }
   return `${String(value)}`;
 };
 
-const selectValueView = (value) => (valueIsObject(value) ? '[complex value]' : valueToString(value));
+const selectValueView = (value) => (valueIsObject(value) ? '[complex value]' : getValueFormattedToString(value));
 
 export const getValueFormattedPlain = (valueIntr, prefixKey, type) => {
-  const key = String(valueIntr.key);
+  const { key } = valueIntr;
   const value = selectValueView(valueIntr.value);
   const value1 = selectValueView(valueIntr.value1);
   const value2 = selectValueView(valueIntr.value2);
@@ -29,27 +29,20 @@ export const getValueFormattedPlain = (valueIntr, prefixKey, type) => {
   }
 };
 
-const plainIter = (value, prefixKey) => {
-  let result = '';
-  value.forEach((obj) => {
-    const { key } = obj;
-    const fullKey = prefixKey ? `${prefixKey}${key}.` : `${key}.`;
+const plainIter = (value, prefixKey) => value.reduce((result, obj) => {
+  const { key } = obj;
+  const fullKey = prefixKey ? `${prefixKey}${key}.` : `${key}.`;
 
-    if (obj.type === 'nested') {
-      const valueOfKey = obj.children;
-      result = `${result}${plainIter(valueOfKey, fullKey)}`;
-    } else {
-      const valueOfKey = getValueFormattedPlain(obj, prefixKey, obj.type);
-      if (valueOfKey === '') {
-        result = `${result}`;
-      } else {
-        result = `${result}${valueOfKey}\n`;
-      }
-    }
-  });
-
-  return result;
-};
+  if (obj.type === 'nested') {
+    const valueOfKey = obj.children;
+    return `${result}${plainIter(valueOfKey, fullKey)}`;
+  }
+  const valueOfKey = getValueFormattedPlain(obj, prefixKey, obj.type);
+  if (valueOfKey === '') {
+    return `${result}`;
+  }
+  return `${result}${valueOfKey}\n`;
+}, '');
 
 export const getPlain = (value) => {
   if (!Array.isArray(value) || (Array.isArray(value) && value.length === 0)) {

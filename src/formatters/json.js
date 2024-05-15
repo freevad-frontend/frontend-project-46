@@ -1,5 +1,5 @@
 const getJson = (value) => {
-  if (!Array.isArray(value) || (Array.isArray(value) && value.length === 0)) {
+  if (!Array.isArray(value)) {
     return value;
   }
 

@@ -6,27 +6,26 @@ const offsetEndObj = 4;
 
 const count = (depth, repeat, offset = offsetDiff) => depth * repeat - offset;
 
-export const margin = (depth, repeat = repeatDiff, offset = offsetDiff) => `${' '.repeat(count(depth, repeat, offset))}`;
+const getMargin = (depth, repeat = repeatDiff, offset = offsetDiff) => `${' '.repeat(count(depth, repeat, offset))}`;
 
 const objFormatted = (obj, depth, prefixKey) => {
   const keys = Object.keys(obj);
-  let result = '{';
 
-  keys.forEach((key) => {
+  const result = keys.reduce((acc, key) => {
     const fullKey = prefixKey ? `${prefixKey}: {${key}` : key;
-
     const valueOfKey = obj[key];
-    if (typeof valueOfKey === 'object' && !Array.isArray(valueOfKey) && valueOfKey !== null) {
-      result += `\n${margin(depth + 1, repeatDiff, offsetObj)}${key}: ${objFormatted(valueOfKey, depth + 1, fullKey)}`;
-    } else {
-      result += `\n${margin(depth + 1, repeatDiff, offsetObj)}${key}: ${valueOfKey}`;
-    }
-  });
+    const margin = getMargin(depth + 1, repeatDiff, offsetObj);
 
-  return `${result}\n${margin(depth, repeatDiff, offsetObj)}}`;
+    if (typeof valueOfKey === 'object' && !Array.isArray(valueOfKey) && valueOfKey !== null) {
+      return `${acc}\n${margin}${key}: ${objFormatted(valueOfKey, depth + 1, fullKey)}`;
+    }
+    return `${acc}\n${margin}${key}: ${valueOfKey}`;
+  }, '{');
+
+  return `${result}\n${getMargin(depth, repeatDiff, offsetObj)}}`;
 };
 
-const valueToString = (value, depth) => {
+const getValueFormattedToString = (value, depth) => {
   if (typeof value === 'object' && value !== null) {
     return objFormatted(value, depth, '');
   }
@@ -35,20 +34,20 @@ const valueToString = (value, depth) => {
 };
 
 export const getValueFormatted = (valueIntr, type, depth) => {
-  const key = String(valueIntr.key);
-  const value = valueToString(valueIntr.value, depth);
-  const value1 = valueToString(valueIntr.value1, depth);
-  const value2 = valueToString(valueIntr.value2, depth);
+  const { key } = valueIntr;
+  const value = getValueFormattedToString(valueIntr.value, depth);
+  const value1 = getValueFormattedToString(valueIntr.value1, depth);
+  const value2 = getValueFormattedToString(valueIntr.value2, depth);
 
   switch (type) {
     case 'added':
-      return `${margin(depth)}+ ${key}: ${value}`;
+      return `${getMargin(depth)}+ ${key}: ${value}`;
     case 'deleted':
-      return `${margin(depth)}- ${key}: ${value}`;
+      return `${getMargin(depth)}- ${key}: ${value}`;
     case 'changed':
-      return `${margin(depth)}- ${key}: ${value1}\n${margin(depth)}+ ${key}: ${value2}`;
+      return `${getMargin(depth)}- ${key}: ${value1}\n${getMargin(depth)}+ ${key}: ${value2}`;
     case 'unchanged':
-      return `${margin(depth)}  ${key}: ${value}`;
+      return `${getMargin(depth)}  ${key}: ${value}`;
     default:
       throw new Error(`Error: not found type compare: ${type}`);
   }
@@ -62,7 +61,7 @@ const stringifyIter = (value, depth, prefixKey) => {
 
     if (obj.type === 'nested') {
       const valueOfKey = obj.children;
-      result += `\n${margin(depth, repeatDiff, offsetObj)}${key}: {${stringifyIter(valueOfKey, depth + 1, fullKey)}\n${margin(depth + 1, repeatDiff, offsetEndObj)}}`;
+      result += `\n${getMargin(depth, repeatDiff, offsetObj)}${key}: {${stringifyIter(valueOfKey, depth + 1, fullKey)}\n${getMargin(depth + 1, repeatDiff, offsetEndObj)}}`;
     } else {
       const valueOfKey = getValueFormatted(obj, obj.type, depth);
       result += `\n${valueOfKey}`;

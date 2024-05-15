@@ -10,25 +10,21 @@ const isHas = (obj, key) => (!!_.has(obj, key));
 
 const getDiffLine = (key, parseFile1, parseFile2) => {
   if (!isHas(parseFile2, key)) {
-    const diffLine = { key, value: parseFile1[key], type: 'deleted' };
-    return diffLine;
+    return { key, value: parseFile1[key], type: 'deleted' };
   }
   if (!isHas(parseFile1, key)) {
-    const diffLine = { key, value: parseFile2[key], type: 'added' };
-    return diffLine;
+    return { key, value: parseFile2[key], type: 'added' };
   }
   if (parseFile1[key] === parseFile2[key]) {
-    const diffLine = { key, value: parseFile1[key], type: 'unchanged' };
-    return diffLine;
+    return { key, value: parseFile1[key], type: 'unchanged' };
   }
 
-  const diffLine = {
+  return {
     key, value1: parseFile1[key], value2: parseFile2[key], type: 'changed',
   };
-  return diffLine;
 };
 
-const isObject = (value) => (!!((typeof value === 'object' && !Array.isArray(value) && value !== null)));
+const isObject = (value) => (!!(typeof value === 'object' && !Array.isArray(value) && value !== null));
 
 const getDiffArray = (parseFile1, parseFile2) => {
   const keysUniqueSort = getKeysUniqueSort(parseFile1, parseFile2);

@@ -29,20 +29,14 @@ const isObject = (value) => (!!(typeof value === 'object' && !Array.isArray(valu
 const getDiffArray = (parseFile1, parseFile2) => {
   const keysUniqueSort = getKeysUniqueSort(parseFile1, parseFile2);
 
-  const diffLinesArray = [];
-
-  keysUniqueSort.map((key) => {
+  return keysUniqueSort.reduce((acc, key) => {
     if (isObject(parseFile1[key]) && isObject(parseFile2[key])) {
       const newLine = { key, children: getDiffArray(parseFile1[key], parseFile2[key]), type: 'nested' };
-      diffLinesArray.push(newLine);
-      return newLine;
+      return [...acc, newLine];
     }
     const newLine = getDiffLine(key, parseFile1, parseFile2);
-    diffLinesArray.push(newLine);
-    return newLine;
-  });
-
-  return diffLinesArray;
+    return [...acc, newLine];
+  }, []);
 };
 
 export default getDiffArray;

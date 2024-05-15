@@ -53,23 +53,17 @@ export const getValueFormatted = (valueIntr, type, depth) => {
   }
 };
 
-const stringifyIter = (value, depth, prefixKey) => {
-  let result = '';
-  value.forEach((obj) => {
-    const { key } = obj;
-    const fullKey = prefixKey ? `${prefixKey}: {${key}` : key;
+const stringifyIter = (value, depth, prefixKey) => value.reduce((result, obj) => {
+  const { key } = obj;
+  const fullKey = prefixKey ? `${prefixKey}: {${key}` : key;
 
-    if (obj.type === 'nested') {
-      const valueOfKey = obj.children;
-      result += `\n${getMargin(depth, repeatDiff, offsetObj)}${key}: {${stringifyIter(valueOfKey, depth + 1, fullKey)}\n${getMargin(depth + 1, repeatDiff, offsetEndObj)}}`;
-    } else {
-      const valueOfKey = getValueFormatted(obj, obj.type, depth);
-      result += `\n${valueOfKey}`;
-    }
-  });
-
-  return result;
-};
+  if (obj.type === 'nested') {
+    const valueOfKey = obj.children;
+    return `${result}\n${getMargin(depth, repeatDiff, offsetObj)}${key}: {${stringifyIter(valueOfKey, depth + 1, fullKey)}\n${getMargin(depth + 1, repeatDiff, offsetEndObj)}}`;
+  }
+  const valueOfKey = getValueFormatted(obj, obj.type, depth);
+  return `${result}\n${valueOfKey}`;
+}, '');
 
 export const getStringify = (value) => {
   if (!Array.isArray(value) || (Array.isArray(value) && value.length === 0)) {

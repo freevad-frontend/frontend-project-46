@@ -1,4 +1,4 @@
-const valueIsObject = (value) => !!(typeof value === 'object' && value !== null);
+const valueIsObject = (value) => (typeof value === 'object' && value !== null);
 
 const getValueFormattedToString = (value) => {
   if (typeof value === 'string') {

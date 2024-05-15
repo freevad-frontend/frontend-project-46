@@ -6,7 +6,7 @@ const getKeysUniqueSort = (file1, file2) => {
   return keysSort;
 };
 
-const isHas = (obj, key) => (!!_.has(obj, key));
+const isHas = (obj, key) => (_.has(obj, key));
 
 const getDiffLine = (key, parseFile1, parseFile2) => {
   if (!isHas(parseFile2, key)) {
@@ -24,7 +24,7 @@ const getDiffLine = (key, parseFile1, parseFile2) => {
   };
 };
 
-const isObject = (value) => (!!(typeof value === 'object' && !Array.isArray(value) && value !== null));
+const isObject = (value) => (typeof value === 'object' && !Array.isArray(value) && value !== null);
 
 const getDiffArray = (parseFile1, parseFile2) => {
   const keysUniqueSort = getKeysUniqueSort(parseFile1, parseFile2);

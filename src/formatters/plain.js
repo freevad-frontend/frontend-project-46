@@ -1,19 +1,14 @@
 const valueIsObject = (value) => (typeof value === 'object' && value !== null);
 
-const getValueFormattedToString = (value) => {
-  if (typeof value === 'string') {
-    return `'${String(value)}'`;
-  }
-  return `${String(value)}`;
-};
+const getValueFormattedToString = (value) => (typeof value === 'string' ? `'${String(value)}'` : `${String(value)}`);
 
 const selectValueView = (value) => (valueIsObject(value) ? '[complex value]' : getValueFormattedToString(value));
 
 export const getValueFormattedPlain = (valueIntr, prefixKey, type) => {
   const { key } = valueIntr;
   const value = selectValueView(valueIntr.value);
-  const value1 = selectValueView(valueIntr.value1);
-  const value2 = selectValueView(valueIntr.value2);
+  const oldValue = selectValueView(valueIntr.oldValue);
+  const newValue = selectValueView(valueIntr.newValue);
 
   switch (type) {
     case 'added':
@@ -21,7 +16,7 @@ export const getValueFormattedPlain = (valueIntr, prefixKey, type) => {
     case 'deleted':
       return `Property '${prefixKey}${key}' was removed`;
     case 'changed':
-      return `Property '${prefixKey}${key}' was updated. From ${value1} to ${value2}`;
+      return `Property '${prefixKey}${key}' was updated. From ${oldValue} to ${newValue}`;
     case 'unchanged':
       return '';
     default:

@@ -38,10 +38,10 @@ test('compare files', () => {
   const expectedCompareFilesJsonContent = fs.readFileSync(expectedCompareFilesJsonPath, 'utf-8');
 
   const testErrorObj1 = {
-    key: 'tt', value: 22, value1: 33, value2: 44,
+    key: 'tt', value: 22, oldValue: 33, newValue: 44,
   };
   const testErrorObj2 = {
-    key: 'tt', value: 22, value1: 33, value2: testErrorObj1,
+    key: 'tt', value: 22, oldValue: 33, newValue: testErrorObj1,
   };
 
   expect(getDiffFiles(filePath1, filePath2)).toEqual(expectedCompareFilesContent);
@@ -54,8 +54,6 @@ test('compare files', () => {
 
   expect(getDiffFiles(fileNSPath1, fileNSPath2, 'stylish')).toEqual(expectedCompareFilesNSContent);
 
-  expect(getDiffFiles(fileNSPath1, fileNSPath2, 'test')).toEqual(expectedCompareFilesNSContent);
-
   expect(getDiffFiles(fileNSPath4, fileNSPath5)).toEqual(expectedCompareFilesNSContent);
 
   expect(getDiffFiles(fileNSPath1, fileNSPath2, 'plain')).toEqual(expectedCompareFilesPlainContent);
@@ -67,6 +65,8 @@ test('compare files', () => {
   expect(getDiffFiles(fileNSPath4, fileNSPath5, 'json')).toEqual(expectedCompareFilesJsonContent);
 
   expect(() => getDiffFiles(fileNSPath1, fileNSPath3)).toThrow('Unsupported file format: .txt');
+
+  expect(() => getDiffFiles(fileNSPath1, fileNSPath2, 'test')).toThrow('Unknown format or format specified incorrectly');
 
   expect(() => getValueFormatted(testErrorObj2, 'test', 1)).toThrow('Error: not found type compare: test');
   expect(() => getValueFormattedPlain(testErrorObj2, '', 'test')).toThrow('Error: not found type compare: test');

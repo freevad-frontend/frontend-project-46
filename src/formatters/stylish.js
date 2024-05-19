@@ -36,8 +36,8 @@ const getValueFormattedToString = (value, depth) => {
 export const getValueFormatted = (valueIntr, type, depth) => {
   const { key } = valueIntr;
   const value = getValueFormattedToString(valueIntr.value, depth);
-  const value1 = getValueFormattedToString(valueIntr.value1, depth);
-  const value2 = getValueFormattedToString(valueIntr.value2, depth);
+  const oldValue = getValueFormattedToString(valueIntr.oldValue, depth);
+  const newValue = getValueFormattedToString(valueIntr.newValue, depth);
 
   switch (type) {
     case 'added':
@@ -45,7 +45,7 @@ export const getValueFormatted = (valueIntr, type, depth) => {
     case 'deleted':
       return `${getMargin(depth)}- ${key}: ${value}`;
     case 'changed':
-      return `${getMargin(depth)}- ${key}: ${value1}\n${getMargin(depth)}+ ${key}: ${value2}`;
+      return `${getMargin(depth)}- ${key}: ${oldValue}\n${getMargin(depth)}+ ${key}: ${newValue}`;
     case 'unchanged':
       return `${getMargin(depth)}  ${key}: ${value}`;
     default:

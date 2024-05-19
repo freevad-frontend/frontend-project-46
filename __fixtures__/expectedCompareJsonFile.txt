@@ -19,8 +19,8 @@
       },
       {
         "key": "setting3",
-        "value1": true,
-        "value2": null,
+        "oldValue": true,
+        "newValue": null,
         "type": "changed"
       },
       {
@@ -43,8 +43,8 @@
             "children": [
               {
                 "key": "wow",
-                "value1": "",
-                "value2": "so much",
+                "oldValue": "",
+                "newValue": "so much",
                 "type": "changed"
               }
             ],
@@ -71,8 +71,8 @@
     "children": [
       {
         "key": "baz",
-        "value1": "bas",
-        "value2": "bars",
+        "oldValue": "bas",
+        "newValue": "bars",
         "type": "changed"
       },
       {
@@ -82,10 +82,10 @@
       },
       {
         "key": "nest",
-        "value1": {
+        "oldValue": {
           "key": "value"
         },
-        "value2": "str",
+        "newValue": "str",
         "type": "changed"
       }
     ],

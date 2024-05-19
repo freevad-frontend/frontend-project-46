@@ -13,7 +13,7 @@ program
   .arguments('<filepath1> <filepath2>')
   .action((filepath1, filepath2) => {
     const opts = program.opts();
-    const format = opts.format || 'stylish';
+    const { format } = opts;
     console.log(getDiffFiles(filepath1, filepath2, format));
   })
   .helpOption('-h, --help', 'output usage information');

@@ -20,7 +20,7 @@ const getDiffLine = (key, parseFile1, parseFile2) => {
   }
 
   return {
-    key, value1: parseFile1[key], value2: parseFile2[key], type: 'changed',
+    key, oldValue: parseFile1[key], newValue: parseFile2[key], type: 'changed',
   };
 };
 
